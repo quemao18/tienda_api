@@ -1,0 +1,3 @@
+configurar el archivo de 
+application/config/database.php (datos de la base de datos)
+application/config/config.php 
