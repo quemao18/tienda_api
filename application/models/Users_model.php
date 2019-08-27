@@ -172,6 +172,60 @@ class Users_model extends CI_Model
     		return $this->_db_premium->insert('cliempre', $data);
     
     	// return $this->_db_web->_error_message();
+	}
+	
+
+	public function registerClientPremium2($data)
+    {
+		//print_r($data); exit;
+		$id = $data->user;
+		$phone = $data->phone;
+		$type = $data->type;
+		$direction = $data->direction;
+		$zone = $data->zone;
+		$name = $data->name;
+    	//$random = rand(1782598471, 9999999999);
+    	$data = array(
+    			'id_empresa'						=> '001000',
+    			'agencia' 							=> '001',
+    			'status' 							=> '1',
+    			'formafis' 							=> '1',
+    			'codigo' 							=> $id,
+    			'nombre'           					=> $name,
+    			'cedula'							=> $id,
+    			'nrorif'  							=> $id,
+    			'tipo' 								=> $type,
+    			'direccion' 						=> $direction,
+    			'telefonos'							=> $phone,
+    			'fecha' 							=> date('Y-m-d'),
+    			'precio' 							=> '1',
+    			'credito' 							=> 'N',
+    			'sector' 							=> $zone
+    			
+    	);
+    	
+    	$data2 = array(
+    			//'codigo' 							=> $id,
+    			'nombre'           					=> $name,
+    			'cedula'							=> $id,
+    			'nrorif'   							=> $id,
+    			'tipo' 								=> $type,
+    			'direccion' 						=> $direction,
+    			'telefonos'							=> $phone,
+    			//'fecha' 							=> date('Y-m-d'),
+    			//'precio' 							=> '1',
+    			//'credito' 							=> 'N',
+    			'sector' 							=> $zone
+    			 
+    	);
+    	
+    	
+    	if($this->_db_premium->query("select codigo from cliempre where codigo='$id'")->num_rows()>0)
+    		return $this->_db_premium->where('codigo', $id)->update('cliempre', $data2);
+    	else
+    		return $this->_db_premium->insert('cliempre', $data);
+    
+    	// return $this->_db_web->_error_message();
     }
     
 	public function editUser($name, $user, $password = NULL, $email, $direction, $phone){

@@ -225,7 +225,6 @@ class Cart_model extends CI_Model {
 	}
 	
 	public function save($data, $codClient, $name, $sector) {
-	
 		$items = $data['items'];
 		//$username = $data['username'];
 		if($codClient==null || $codClient == '') $username = 'V1';
@@ -285,6 +284,236 @@ class Cart_model extends CI_Model {
 			
 			$costounit=$item['data']['costo'];
 			$iva_articulo = $item['data']['iva'];
+			
+			$preciounit=getCosto($precio, $iva_articulo);
+			//return $preciounit;
+			//echo $preciounit;
+			$preciofin=$preciounit;
+			$preciooriginal=$preciofin;
+			$montoneto=$preciooriginal*$cantidad;
+			$montototal=$montoneto;
+			$aux1=$cantidad;			
+			$baseimpo1=$montototal;
+			
+			
+			$sql =preg_replace("/\r\n+|\r+|\n+|\t+/i", "", "INSERT INTO opermv (
+					id_empresa, 
+					agencia, 
+					tipodoc, 
+					documento, 
+					grupo, 
+					subgrupo, 
+					origen, 
+					codigo,	
+					codhijo, 
+					pid, 
+					nombre, 
+					costounit, 
+					preciounit, 
+					preciofin, 
+					preciooriginal, 
+					cantidad, 
+					montoneto, 
+					montototal, 
+					almacen, 
+					proveedor, 
+					fechadoc, 
+					timpueprc, 
+					vendedor, 
+					emisor, 
+					usaserial, 
+					tipoprecio, 
+					agrupado, 
+					compuesto, 
+					usaexist, 
+					aux1, 
+					estacion, 
+					baseimpo1, 
+					fechayhora) 
+					VALUES (
+					'$id_empresa',
+					'$agencia',
+					'$tipodoc', 
+					'$documento', 
+					'$grupo', 
+					'$subgrupo', 
+					'$origen', 
+					'$codigo', 
+					'$codhijo', 
+					'$pid', 
+					'$nombre', 
+					'$costounit', 
+					'$preciounit', 
+					'$preciofin', 
+					'$preciooriginal', 
+					'$cantidad', 
+					'$montoneto',
+					'$montototal', 
+					'$almacen', 
+					'$proveedor', 
+					'$fecha', 
+					'$timpueprc', 
+					'$vendedor', 
+					'$emisor', 
+					'$usaserial', 
+					'$tipoprecio', 
+					'$agrupado', 
+					'$compuesto', 
+					'$usaexist', 
+					'$aux1',
+					'$estacion',
+					'$baseimpo1',
+					'$fechayhora'
+					)"
+					);
+			$res1= $this->_db_premium->query($sql);
+			$totcosto += $costounit*$cantidad;
+			$totalfinal += $montototal;
+			//return $res1;			
+		}
+		
+		$totbruto=$totalfinal;
+		$totneto=$totbruto;
+		$impuesto1=round($totbruto*($this->_iva)/100,2);
+		$impuesto2=$impuesto1;
+		$totimpuest=$impuesto1;
+		
+		$sql= preg_replace("/\r\n+|\r+|\n+|\t+/i", "", "INSERT INTO operti (
+		id_empresa, 
+		agencia, 
+		tipodoc, 
+		documento, 
+		codcliente, 
+		nombrecli, 
+		rif, 
+		tipoprecio, 
+		emision, 
+		recepcion, 
+		vence, 
+		fechacrea, 
+		totcosto, 
+		totbruto, 
+		totneto, 
+		totalfinal, 
+		totimpuest, 
+		impuesto1, 
+		impuesto2, 
+		vendedor, 
+		uemisor, 
+		estacion, 
+		almacen, 
+		sector, 
+		formafis, 
+		al_libro, 
+		dbcr, 
+		horadocum, 
+		ampm, 
+		baseimpo1, 
+		fechayhora) VALUES (
+		'$id_empresa', 
+		'$agencia',
+		'$tipodoc',
+		'$documento', 
+		'$codcliente',
+		'$nombrecli',
+		'$rif',
+		'$tipoprecio',
+		'$emision',
+		'$recepcion',
+		'$vence',
+		'$fechacrea',
+		'$totcosto',
+		'$totbruto',
+		'$totneto',
+		'$totalfinal',
+		'$totimpuest',
+		'$impuesto1',
+		'$impuesto2',
+		'$vendedor',
+		'$emisor',
+		'$estacion',
+		'$almacen',
+		'$sector',
+		'$formafis',
+		'$al_libro',
+		'$dbcr',
+		'$hora',
+		'$ampm',
+		'$baseimpo1',
+		'$fechayhora'
+		)"
+		);
+			
+		$res2= $this->_db_premium->query($sql);
+		//$res1=false;
+		if($res1 && $res2)
+			return '';
+		else 
+			return 'Error guardando...';
+	}
+
+	//save2
+	public function save2($data, $codClient, $name, $sector) {
+		$items = $data;
+		//print_r($items); return;
+		//$username = $data['username'];
+		if($codClient==null || $codClient == '') $username = 'V1';
+		if($name == null || $name == '') $name = $this->_host;
+		
+		$username= $codClient;
+		
+		$totcosto=0;
+		$totalfinal = 0;
+		$documento= ''.date('dHis'); //ejm diahoraminutosegundos
+		$almacen='01';
+		$id_empresa='001000';
+		$agencia='001';
+		$tipodoc='ESP';
+		$origen=1;
+		$vendedor='01';
+		$emisor='ATOBA';
+		$usaserial='2';
+		$tipoprecio='1';
+		$agrupado=2;
+		$usaexist=1;
+		$timpueprc='12'; //ojo hay q cambiarlo segun las seniat
+		$proveedor=$username;
+		$compuesto=2;
+		$fecha=$this->_fecha;
+		$pid = $this->_pid;
+		$rif=$username;
+		$codcliente=$rif;
+		$codhijo='';
+		$estacion='000';
+		
+		//$nombrecli='CONSUMIDOR FINAL';
+		$nombrecli = $name;//$nombrecli=$this->_host;
+		$fechacrea=$fecha;
+		$fechayhora=$this->_fecha_hora;
+		
+		$emision=$fecha;
+		$recepcion=$emision;
+		$vence=$recepcion;
+		$sector= $sector;//$sector='02';
+		$hora='';
+		$formafis='1';
+		$al_libro='1';
+		$dbcr='2';
+		$ampm='0';
+		
+		
+		foreach ($items as  $item) {
+			
+			$codigo = $item->username;
+			$cantidad = $item->qty;
+			$precio = $item->price;
+			
+			$nombre=$item->item->nombre;
+			$grupo=$item->item->codigo_grupo;
+			$subgrupo=$item->item->subgrupo;
+			
+			$costounit=$item->item->costo;
+			$iva_articulo = $item->item->iva;
 			
 			$preciounit=getCosto($precio, $iva_articulo);
 			//return $preciounit;

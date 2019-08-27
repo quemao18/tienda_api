@@ -293,6 +293,38 @@ class Users extends REST_Controller {
 		//$this->set_response(array('name'=>$this->post('name')), REST_Controller::HTTP_NOT_FOUND); // NOT_FOUND (404) being the HTTP response code
 	
 	}
+
+
+	public function client_premium2_post() {
+	
+		$data = ( json_decode($this->post('data') ));
+		// $user = $this->post ('user');
+		// $name = $this->post ('name');
+		// $type = $this->post ('type');
+		// $direction = $this->post ('direction');
+		// $phone = $this->post ('phone');
+		// $zone = $this->post ('zone');
+	
+		//$user_= $this->Users_model->getUser($user);
+		//$userEmail = $this->Users_model->getUser($email);
+	
+
+			$reg = $this->Users_model->registerClientPremium2 ( $data );
+			if($reg)
+			$this->response ( array (
+					'status' => true,
+					'message' => 'Cliente Registrado...'
+			), REST_Controller::HTTP_OK );
+			else
+			$this->set_response ( array (
+					'status' => false,
+					'message' => 'Error'
+			), REST_Controller::HTTP_NOT_FOUND );
+						
+	
+		//$this->set_response(array('name'=>$this->post('name')), REST_Controller::HTTP_NOT_FOUND); // NOT_FOUND (404) being the HTTP response code
+	
+	}
 	
 	public function client_premium_get() {
 	
