@@ -18,7 +18,7 @@ class Sales_model extends CI_Model {
 		$this->_db_web=$this->load->database('web', TRUE);
 		$this->_fecha_hora = date('Y-m-d H:i:s');
 		$this->_fecha = date('Y-m-d');
-		$this->_iva = '12';
+		$this->_iva = '16';
 		$this->_hora=date('h:m A');
 		$this->_host = gethostbyaddr($_SERVER['REMOTE_ADDR']);			
 		$this->_pid = pid();
