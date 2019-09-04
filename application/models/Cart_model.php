@@ -246,7 +246,7 @@ class Cart_model extends CI_Model {
 		$tipoprecio='1';
 		$agrupado=2;
 		$usaexist=1;
-		$timpueprc='12'; //ojo hay q cambiarlo segun las seniat
+		$timpueprc='16'; //ojo hay q cambiarlo segun las seniat
 		$proveedor=$username;
 		$compuesto=2;
 		$fecha=$this->_fecha;
@@ -476,7 +476,7 @@ class Cart_model extends CI_Model {
 		$tipoprecio='1';
 		$agrupado=2;
 		$usaexist=1;
-		$timpueprc='12'; //ojo hay q cambiarlo segun las seniat
+		$timpueprc='16'; //ojo hay q cambiarlo segun las seniat
 		$proveedor=$username;
 		$compuesto=2;
 		$fecha=$this->_fecha;
