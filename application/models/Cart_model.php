@@ -503,8 +503,8 @@ class Cart_model extends CI_Model {
 		
 		
 		foreach ($items as  $item) {
-			
-			$codigo = $item->username;
+
+			$codigo = $item->item->codigo;
 			$cantidad = $item->qty;
 			$precio = $item->price;
 			
@@ -515,7 +515,8 @@ class Cart_model extends CI_Model {
 			$costounit=$item->item->costo;
 			$iva_articulo = $item->item->iva;
 			
-			$preciounit=getCosto($precio, $iva_articulo);
+			//$preciounit=getCosto($precio, $iva_articulo);
+			$preciounit=getCosto($precio, $this->_iva);
 			//return $preciounit;
 			//echo $preciounit;
 			$preciofin=$preciounit;
