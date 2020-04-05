@@ -63,8 +63,8 @@ if($_SERVER['SERVER_NAME']=='rodasalias.com')
 	$db['web']['database']     = 'admin001000_web';
 }
 
-if($_SERVER['SERVER_NAME']=='rodasalias.com' || $_SERVER['SERVER_NAME']=='rodasalias.changeip.net')
-$db['premium']['hostname'] = $db['web']['hostname'] = 'rodasalias.changeip.net';
+if($_SERVER['SERVER_NAME']=='rodasalias.com' || $_SERVER['SERVER_NAME']=='rodasalias.changeip.net' || $_SERVER['SERVER_NAME']=='api.rodasalias.dns-cloud.net')
+$db['premium']['hostname'] = $db['web']['hostname'] = 'api.rodasalias.dns-cloud.net';
 if($_SERVER['SERVER_NAME']=='localhost' )
 $db['premium']['hostname'] = $db['web']['hostname'] = 'localhost';
 if($_SERVER['SERVER_NAME']=='servidor' )
@@ -81,7 +81,6 @@ $db['premium']['hostname'] = $db['web']['hostname'] = 'http://rodasaliasservidor
 //$db['web']['hostname'] = '190.75.77.252'; 
 */
 
-
 $db['web']['dbdriver'] = $db['premium']['dbdriver'] = 'mysqli';
 $db['web']['dbprefix'] = $db['premium']['dbprefix'] = '';
 $db['web']['pconnect'] = $db['premium']['pconnect'] = FALSE; 
@@ -94,6 +93,8 @@ $db['web']['dbcollat'] = $db['premium']['dbcollat'] = 'utf8_general_ci';
 $db['web']['swap_pre'] = $db['premium']['swap_pre'] = '';
 $db['web']['autoinit'] = $db['premium']['autoinit'] = TRUE;
 $db['web']['stricton'] = $db['premium']['stricton'] = FALSE;
+
+$db['web']['dbport'] = $db['premium']['dbport'] = '3306';
 
 //agregado por error MySQL server has gone away 
 ini_set ('mysqli.reconnect', 1);

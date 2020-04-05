@@ -24,8 +24,8 @@ date_default_timezone_set('America/La_Paz');
 |
 */
 
-if(	strpos($_SERVER['SERVER_NAME'], 'rodasalias.com') || strpos($_SERVER['SERVER_NAME'], 'rodasalias.changeip.net')){
-			$config['base_url']	= 'http://rodasalias.changeip.net:8080/tienda_api/';
+if(	strpos($_SERVER['SERVER_NAME'], 'rodasalias.com') || strpos($_SERVER['SERVER_NAME'], 'rodasalias.changeip.net') || strpos($_SERVER['SERVER_NAME'], 'api.rodasalias.dns-cloud.net')){
+			$config['base_url']	= 'https://api.rodasalias.dns-cloud.net:4443/tienda_api/';
 }elseif(
 		$_SERVER['HTTP_HOST']=='servidor'
 		){
