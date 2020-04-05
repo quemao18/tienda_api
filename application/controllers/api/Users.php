@@ -241,6 +241,7 @@ class Users extends REST_Controller {
 		$password = $this->post ('password');
 		//$random = rand(1782598471, 9999999999);
 		//$random = crc32($user);
+		
 		$user_= $this->Users_model->getUser($user);		
 		$userEmail = $this->Users_model->getUser($email);
 		
@@ -252,17 +253,24 @@ class Users extends REST_Controller {
 		}else{
 			
 			$reg = $this->Users_model->registerUser ( urldecode($name), urldecode($user), urldecode($password), urldecode($email), urldecode($direction), urldecode($phone) );			
+			$res = $this->Users_model->activateUser($user, $reg);
+
 			$this->response ( array (
 					'status' => true,
 					'message' => 'Registrado.'
 			), REST_Controller::HTTP_OK );
+
+			
 			
 		}
 		
 		
 			//$this->set_response(array('name'=>$this->post('name')), REST_Controller::HTTP_NOT_FOUND); // NOT_FOUND (404) being the HTTP response code
 		
+
+			
 	}
+
 	
 	public function client_premium_post() {
 	

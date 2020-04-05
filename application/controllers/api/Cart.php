@@ -175,15 +175,119 @@ class Cart extends REST_Controller {
 	
 	}
 	
-        public function inquire2_post() {
+    public function inquire2_post() {
 	
-            	 
-		$data = $this->post ('data');
-                $this->response(array(
-					'status' => TRUE,
-					'message' => json_encode($data['items']->data)
-			), REST_Controller::HTTP_OK); // NOT_FOUND (404) being the HTTP response code
-                
+			$this->email->set_newline("\r\n");
+		 
+			// $data = $this->post ('data');
+			$data = json_decode( $this->post('data'), true );	
+			// echo $data; exit;
+			$subject = 'Presupuesto Solicitado En '.$this->config->item('APP_NAME').'';
+			 $body = '<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+					<html xmlns="http://www.w3.org/1999/xhtml">
+					<head>
+					<link rel="stylesheet" type="text/css" href="http://rodasalias.com/tienda/app/libs/bootstrap/v336/css/bootstrap.min.css">
+					<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+					<title>'.htmlspecialchars($subject, ENT_QUOTES, $this->email->charset).'</title>			    
+				   </head>			    		
+					<body>
+					<a href="https://rodasalias.com/"><img src="https://rodasalias.com/tienda/img/logo.png" ></a>	
+					 <strong>
+					<br><br>Cliente:<br><br>
+					  
+					   CI/RIF: '.$data['username'].
+					  '<br>Nombre: '.ucwords(strtolower($data['name'])).
+					  '<br>Dirección: '.ucwords(strtolower($data['direction'])).
+					  '<br>Email: '.(strtolower($data['email'])).
+					  '</strong>
+					<br><br>Presupuesto solicitado:<br><br>';
+			 $body.= '
+					 
+	<table class="table table-striped">
+	<thead>
+			<tr>
+			 <th width="20%">Cantidad</th>
+			 <th width="80%">Descripci&oacute;n</th>
+		   </tr>
+	</thead>
+	 <tbody>'; 
+	$i = 1;
+	 foreach ($data['items'] as $item): 	
+	$body .= '	
+		<tr>
+			  <td align="center">'.$item['qty'].'</td>
+		
+				<td>
+					<h4> '.trim(ucwords(strtolower($item['item']['nombre']))) .'
+						<small> '.trim(ucwords(strtolower($item['item']['medidas']))).' </small>
+					</h4>	
+					<h4>
+						Cod: '.trim(ucwords(strtolower($item['item']['codigo']))).'
+						<small> Ref: '.trim(ucwords(strtolower($item['item']['referencia']))).' </small>'.trim(ucwords(strtolower($item['item']['marca']))).'
+					</h4>	
+					<h4>
+						<small><i>'.trim(ucwords(strtolower($item['item']['detalles']))).'</i></small>
+					</h4>	
+				
+				</td>
+			</tr>
+		 ';
+	$i++;
+	endforeach;
+	$body.='
+	
+	 </tbody>
+	</table>	
+		';
+	
+	$body.=	
+	'<br><br>Graciar por su interes. Pronto le responderemos.<br><br>'.
+	'<a href=http://'.$this->config->item('APP_WEB').' >'.$this->config->item('APP_WEB').'</a></p>
+	</body>
+	</html>
+			';
+					
+			//echo $body;
+			try {
+		
+			$result = $this->email
+			->from($this->config->item('APP_EMAIL'))
+			->reply_to($data['email'])    // Optional, an account where a human being reads.
+			->to(array($this->config->item('APP_EMAIL_PRESUPUESTO'), $data['email']))
+			->subject($subject)
+			->message($body)
+			->send();
+			
+			if($result)
+			$this->response ( array (
+					'status' => true,
+					'message' => 'Presupuesto enviado, muy pronto le responderemos.' 
+			), REST_Controller::HTTP_OK );
+			
+			//var_dump($result);
+			echo '<br />';
+			echo $this->email->print_debugger();	
+			//print_r($result);
+			$this->response ( array (
+					'status' => false,
+					'message' => 'Error enviando email...'
+			), REST_Controller::HTTP_NOT_FOUND );
+				
+			}catch (phpmailerException $e) {
+			  echo $e->errorMessage(); //Pretty error messages from PHPMailer
+			  $this->response ( array (
+					  'status' => false,
+					  'message' => 'Error: '.$e->errorMessage()
+			  ), REST_Controller::HTTP_NOT_FOUND );
+			} catch (Exception $e) {
+			  echo $e->getMessage(); //Boring error messages from anything else!
+				$this->response ( array (
+						'status' => false,
+						'message' => 'Error: '.$e->getMessage()
+				), REST_Controller::HTTP_NOT_FOUND );
+				
+			}
+		 
         }
         
         public function inquire_post() {
@@ -191,8 +295,8 @@ class Cart extends REST_Controller {
         $this->email->set_newline("\r\n");
 		 
 		$data = $this->post ('data');
-		//$data = json_decode( $this->post('data') );	
-		//echo $data; exit;
+		// $data = json_decode( $this->post('data'), true );	
+		// echo $data; exit;
         $subject = 'Presupuesto Solicitado En '.$this->config->item('APP_NAME').'';
      	$body = '<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 				<html xmlns="http://www.w3.org/1999/xhtml">
