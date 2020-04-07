@@ -229,7 +229,7 @@ class Cart extends REST_Controller {
 			 $body.= '
 					<table class="table table-striped" id="customers">
 					<thead>
-							<tr>
+						<tr>
 							<th width="80%">Descripci&oacute;n</th>
 							<th width="20%">Cantidad</th>
 						</tr>
@@ -239,22 +239,21 @@ class Cart extends REST_Controller {
 	 foreach ($data['items'] as $item): 	
 	$body .= '	
 		<tr>
-			  <td align="center">'.$item['qty'].'</td>
+			<td>
+				<h4> '.trim(ucwords(strtolower($item['item']['nombre']))) .'
+					<small> '.trim(ucwords(strtolower($item['item']['medidas']))).' </small>
+				</h4>	
+				<h4>
+					Cod: '.trim(ucwords(strtolower($item['item']['codigo']))).'
+					<small> Ref: '.trim(ucwords(strtolower($item['item']['referencia']))).' </small>'.trim(ucwords(strtolower($item['item']['marca']))).'
+				</h4>	
+				<h4>
+					<small><i>'.trim(ucwords(strtolower($item['item']['detalles']))).'</i></small>
+				</h4>	
+			</td>
 		
-				<td>
-					<h4> '.trim(ucwords(strtolower($item['item']['nombre']))) .'
-						<small> '.trim(ucwords(strtolower($item['item']['medidas']))).' </small>
-					</h4>	
-					<h4>
-						Cod: '.trim(ucwords(strtolower($item['item']['codigo']))).'
-						<small> Ref: '.trim(ucwords(strtolower($item['item']['referencia']))).' </small>'.trim(ucwords(strtolower($item['item']['marca']))).'
-					</h4>	
-					<h4>
-						<small><i>'.trim(ucwords(strtolower($item['item']['detalles']))).'</i></small>
-					</h4>	
-				
-				</td>
-			</tr>
+			<td align="center">'.$item['qty'].'</td>
+		</tr>
 		 ';
 	$i++;
 	endforeach;
