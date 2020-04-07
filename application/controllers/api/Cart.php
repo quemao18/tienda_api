@@ -203,7 +203,7 @@ class Cart extends REST_Controller {
 					
 					#customers tr:nth-child(even){background-color: #f2f2f2;}
 					
-					#customers tr:hover {background-color: #ddd;}
+					// #customers tr:hover {background-color: #ddd;}
 					
 					#customers th {
 					  padding-top: 12px;
@@ -230,8 +230,8 @@ class Cart extends REST_Controller {
 					<table class="table table-striped" id="customers">
 					<thead>
 							<tr>
-							<th width="20%">Cantidad</th>
 							<th width="80%">Descripci&oacute;n</th>
+							<th width="20%">Cantidad</th>
 						</tr>
 					</thead>
 					<tbody>'; 
