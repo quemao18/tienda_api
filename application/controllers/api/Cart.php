@@ -203,7 +203,7 @@ class Cart extends REST_Controller {
 					
 					#customers tr:nth-child(even){background-color: #f2f2f2;}
 					
-					// #customers tr:hover {background-color: #ddd;}
+					/* #customers tr:hover {background-color: #ddd;} */
 					
 					#customers th {
 					  padding-top: 12px;
