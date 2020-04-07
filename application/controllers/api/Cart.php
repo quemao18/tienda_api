@@ -209,7 +209,7 @@ class Cart extends REST_Controller {
 					  padding-top: 12px;
 					  padding-bottom: 12px;
 					  text-align: left;
-					  background-color: #9e946b;
+					  background-color: #448aff;
 					  color: white;
 					}
 					</style>			    
@@ -225,16 +225,16 @@ class Cart extends REST_Controller {
 					  '<br>Email: '.(strtolower($data['email'])).
 					  '</strong>
 					<br><br>Presupuesto solicitado:<br><br>';
+
 			 $body.= '
-					 
-	<table class="table table-striped" id="customers">
-	<thead>
-			<tr>
-			 <th width="20%">Cantidad</th>
-			 <th width="80%">Descripci&oacute;n</th>
-		   </tr>
-	</thead>
-	 <tbody>'; 
+					<table class="table table-striped" id="customers">
+					<thead>
+							<tr>
+							<th width="20%">Cantidad</th>
+							<th width="80%">Descripci&oacute;n</th>
+						</tr>
+					</thead>
+					<tbody>'; 
 	$i = 1;
 	 foreach ($data['items'] as $item): 	
 	$body .= '	
