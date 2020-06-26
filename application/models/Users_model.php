@@ -77,7 +77,14 @@ class Users_model extends CI_Model
     
     }
        
-    
+	public function setToken($user, $token)
+    {
+    	$this->_db_web->query(
+    			"update usuario_web set token = '$token' " .
+    			"where id_usuario = '$user'  "
+    	);
+    }
+	
     public function setLastLogin($user)
     {
     	$this->_db_web->query(

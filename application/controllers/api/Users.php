@@ -147,12 +147,13 @@ class Users extends REST_Controller {
 		//$this->response( $this->project_model->get_all ());
 		$username = $this->get('username');
 		$password = $this->get("password");
+		$token = $this->get("token");
 		
-                 
 		$user = $this->Users_model->getUser($username, $password);
 		//$this->set_response(array('message' => 'user'.$username), REST_Controller::HTTP_NOT_FOUND);
 		
 		if (empty($user)){
+			$token = $this->Users_model->setToken($username, $token);         
 			$this->response(array(
 					'status' => FALSE,
 					'message' => 'Usuario o password incorrectos'
@@ -169,14 +170,14 @@ class Users extends REST_Controller {
 		$this->response($user, REST_Controller::HTTP_OK); // OK (200) being the HTTP response code					
 		
 	}
-	
-	
-		public function user2_post() {
+
+	public function user2_post() {
 		//$this->response( $this->project_model->get_all ());
 		$username = $this->post('username');
 		$password = $this->post("password");
+		$token = $this->post("token");
 		
-                 
+		$token = $this->Users_model->setToken($username, $token);         
 		$user = $this->Users_model->getUser($username, $password);
 		//$this->set_response(array('message' => 'user'.$username), REST_Controller::HTTP_NOT_FOUND);
 		
@@ -195,7 +196,7 @@ class Users extends REST_Controller {
 		
 		$this->Users_model->setLastLogin($username);
 		$this->response($user, REST_Controller::HTTP_OK); // OK (200) being the HTTP response code					
-		
+	
 	}
 	
 	public function edit_get() {
