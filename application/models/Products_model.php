@@ -63,7 +63,7 @@ class Products_model extends CI_Model {
 		else
 			$this->_db_premium->order_by ('articulo.codigo DESC');
 		
-		return $this->_db_premium->get ( $this->table, 'subgrupos' )->result ();
+		return $this->_db_premium->get ( $this->table, 'subgrupos' )->result();
 	}
 	
 	
