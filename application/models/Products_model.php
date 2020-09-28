@@ -28,20 +28,31 @@ class Products_model extends CI_Model {
 	}
 	
 	public function get_all($group, $topic) {
-		//$this->_db_premium->select($this->config->item('SELECT_ARTICULO'));
 		$this->_contruct_select();
-		//$this->_db_premium->select('count(DISTINCT articulo.grupo) as filas');
-		//$this->_contruct_select();
-		//$this->_db_premium->like ('articulo.codigo', $topic);
-		$this->_db_premium->where(
-				"(
-    				articulo.codigo 		LIKE '%".$topic."%' 	OR
-    			  	articulo.nombre 		LIKE '%".$topic."%' 	OR
-    			  	articulo.detalles 		LIKE '%".$topic."%'		OR
-    				articulo.modelo			LIKE '%".$topic."%'		OR
-    				articulo.referencia 	LIKE '%".$topic."%'
-    			)"
-				);
+		$words = explode(" ", $topic);
+		foreach ($words as $key => $topic) {
+		// 	# code...
+			$this->_db_premium->where(
+			"(
+				articulo.codigo 		LIKE '%".$topic."%' 	OR
+				articulo.nombre 		LIKE '%".$topic."%' 	OR
+				articulo.detalles 		LIKE '%".$topic."%'		OR
+				articulo.modelo			LIKE '%".$topic."%'		OR
+				articulo.referencia 	LIKE '%".$topic."%'
+			)"
+			);
+		}
+
+		// $this->_db_premium->where(
+		// 	"(
+		// 		articulo.codigo 		LIKE '%".$topic."%' 	OR
+		// 		  articulo.nombre 		LIKE '%".$topic."%' 	OR
+		// 		  articulo.detalles 		LIKE '%".$topic."%'		OR
+		// 		articulo.modelo			LIKE '%".$topic."%'		OR
+		// 		articulo.referencia 	LIKE '%".$topic."%'
+		// 	)"
+		// 	);
+		
 		if($group!='' && $group!='todos' )
     		$this->_db_premium->where('articulo.grupo', $group);	
 		if($group=='')
