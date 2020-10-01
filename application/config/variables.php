@@ -203,7 +203,8 @@ FROM
 		";
 
 $config['SELECT_VENTAS_WEB']=" 
-		sum( venta_web_detalle.precio_venta*venta_web_detalle.cantidad ) total, 
+    sum( venta_web_detalle.precio_venta*venta_web_detalle.cantidad ) total, 
+    sum( venta_web_detalle.precio_venta_dolar*venta_web_detalle.cantidad ) total_dolar, 
 		venta_web.usuario_web_id_usuario, usuario_web.nombre,
 		venta_web.fecha,
     venta_web.tipo,
@@ -212,18 +213,19 @@ $config['SELECT_VENTAS_WEB']="
 		";
 
 $config['SELECT_VENTA_DETALLE_WEB']="
-		id_venta_web_detalle, venta_web_detalle.codigo_articulo, venta_web_detalle.cantidad, precio_venta, venta_web.fecha
+		id_venta_web_detalle, venta_web_detalle.codigo_articulo, venta_web_detalle.cantidad, precio_venta, precio_venta_dolar, venta_web.fecha
 		
 		";
 
 $config['SELECT_DEVOLUCION_DETALLE_WEB']="
-		id_devolucion_detalle, devolucion_web_detalle.codigo_articulo, devolucion_web_detalle.cantidad, venta_web_detalle.precio_venta
+		id_devolucion_detalle, devolucion_web_detalle.codigo_articulo, devolucion_web_detalle.cantidad, venta_web_detalle.precio_venta, venta_web_detalle.precio_venta_dolar
 
 		";
 
 $config['SELECT_DEVOLUCIONES_WEB']="
 		devolucion_web.id_devolucion,
-		sum( venta_web_detalle.precio_venta*devolucion_web_detalle.cantidad) total,
+    sum( venta_web_detalle.precio_venta*devolucion_web_detalle.cantidad) total,
+    sum( venta_web_detalle.precio_venta_dolar*devolucion_web_detalle.cantidad) total_dolar,
 		devolucion_web_detalle.codigo_articulo,
 		(devolucion_web_detalle.cantidad ) cantidad,
 		devolucion_web.host,
@@ -234,7 +236,8 @@ $config['SELECT_DEVOLUCIONES_WEB']="
 
 $config['SELECT_DEVOLUCION_WEB']="
  
- sum((devolucion_web_detalle.cantidad)*venta_web_detalle.precio_venta) total, 
+sum((devolucion_web_detalle.cantidad)*venta_web_detalle.precio_venta) total, 
+sum((devolucion_web_detalle.cantidad)*venta_web_detalle.precio_venta_dolar) total_dolar, 
 sum(devolucion_web_detalle.cantidad) cantidad, venta_web_detalle.precio_venta, 
 id_devolucion, id_venta, fecha, devolucion_web_detalle.codigo_articulo 
 		

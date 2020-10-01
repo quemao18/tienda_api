@@ -847,18 +847,21 @@ class Cart_model extends CI_Model {
 			$codigo = $item->item->codigo;
 			$cantidad = $item->qty;
 			$precio = $item->price;
+			$precio_dolar = $item->precio_dolar;
 			
 			$this->_db_web->query("
 					INSERT INTO venta_web_detalle (
 					id_venta_web_detalle, 
 					codigo_articulo, 
 					cantidad, 
-					precio_venta) 
+					precio_venta, 
+					precio_dolar) 
 					VALUES (
 					'$id_venta_web', 
 					'$codigo', 
 					'$cantidad', 
-					'$precio' 
+					'$precio',
+					'$precio_dolar'
 				    )							
 			");
 		$this->cargoDetYKardex2($item);	

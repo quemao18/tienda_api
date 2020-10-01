@@ -196,6 +196,7 @@ class Sales_model extends CI_Model {
 					'codigo_articulo' => $ventad['codigo_articulo'],
 					'id_venta_web_detalle' => $ventad['id_venta_web_detalle'],
 					'precio_venta' => $ventad['precio_venta'],
+					'precio_venta_dolar' => $ventad['precio_venta_dolar'],
 					'referencia' =>$referencia,
 					'nombre' => $nombre,
 					'detalles' => $detalles,
