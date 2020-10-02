@@ -855,7 +855,7 @@ class Cart_model extends CI_Model {
 					codigo_articulo, 
 					cantidad, 
 					precio_venta, 
-					precio_dolar) 
+					precio_venta_dolar) 
 					VALUES (
 					'$id_venta_web', 
 					'$codigo', 
