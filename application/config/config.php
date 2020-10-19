@@ -31,7 +31,7 @@ if(
 	strpos($_SERVER['SERVER_NAME'], 'api-rodasalias.kozow.com')
 )){
 			//'https://api.rodasalias.dns-cloud.net:4443/tienda_api/'
-			$config['base_url']	= 'https://api-rodasalias.kozow.com:4443/tienda_api/';
+			$config['base_url']	= 'http://api-rodasalias.kozow.com:8080/tienda_api/';
 }elseif(
 		$_SERVER['HTTP_HOST']=='servidor'
 		){
