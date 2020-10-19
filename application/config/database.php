@@ -63,8 +63,13 @@ if($_SERVER['SERVER_NAME']=='rodasalias.com')
 	$db['web']['database']     = 'admin001000_web';
 }
 
-if($_SERVER['SERVER_NAME']=='rodasalias.com' || $_SERVER['SERVER_NAME']=='rodasalias.changeip.net' || $_SERVER['SERVER_NAME']=='api.rodasalias.dns-cloud.net')
-$db['premium']['hostname'] = $db['web']['hostname'] = 'api.rodasalias.dns-cloud.net';
+if(
+	$_SERVER['SERVER_NAME']=='rodasalias.com' || 
+	$_SERVER['SERVER_NAME']=='rodasalias.changeip.net' || 
+	$_SERVER['SERVER_NAME']=='api.rodasalias.dns-cloud.net' ||
+	$_SERVER['SERVER_NAME']=='api-rodasalias.kozow.com'
+	)
+$db['premium']['hostname'] = $db['web']['hostname'] = 'api-rodasalias.kozow.com';
 if($_SERVER['SERVER_NAME']=='localhost' )
 $db['premium']['hostname'] = $db['web']['hostname'] = 'localhost';
 if($_SERVER['SERVER_NAME']=='servidor' )
